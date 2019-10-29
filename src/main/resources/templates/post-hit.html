@@ -1,0 +1,76 @@
+<html>
+
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}">
+	<meta name="_csrf_header" th:content="${_csrf.headerName}">
+
+<!-- App css -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/css/app.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div style="margin-top: 30px">
+		<div>
+             <div class="card card-body text-center">
+                 <h4 class="card-title">
+                 	<span th:text="${board.title}" th:remove="tag">title</span>
+                 </h4>
+                 <p class="card-text" value="${board.post}">
+                 	<span th:text="${board.post}" th:remove="tag">post</span>
+                 </p>
+                 <div class="col-md-12 text-center">
+                 <div class="btn-group" role="group" style="margin-top:50px">
+                 	<button type="button" id="btnModify" class="btn btn-primary" 
+                 		th:if="${canModify==true}">수정</button>
+                 	<button type="button" id="btnDelete" class="btn btn-danger"
+                 		th:if="${canModify==true}">삭제</button>
+                 	<button type="button" onclick="location.href='/board';" class="btn btn-warning">목록</button>
+                 </div>
+                 </div>
+             </div>
+         </div>
+	</div>
+	
+	<!-- Vendor js -->
+	<script src="/js/vendor.min.js"></script>
+	
+	<!-- App js -->
+	<script src="/js/app.min.js"></script>
+	
+	<script th:inline="javascript">
+		$(document).ready(function() {
+			$('#btnModify').on('click', function(){
+				var no = /*[[${board.no}]]*/ "";
+				window.location.href = '/board/' + no + '/modify';
+			});
+			
+			$('#btnDelete').on('click', function(){
+				var no = /*[[${board.no}]]*/ "";
+				
+				if(confirm('게시글을 삭제하시겠습니까?') == false) {
+					return;
+				}
+				
+				var token = $("meta[name='_csrf']").attr("content"); 
+				var header = $("meta[name='_csrf_header']").attr("content");
+				
+				$.ajax({
+					url: '/api/boards/' + no,
+					type: 'delete',
+					beforeSend : function(xhr) {
+						/*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                        xhr.setRequestHeader(header, token);
+                    },
+				}).then(function(response) {
+					console.log(response);
+					alert('삭제되었습니다.');
+					window.location.href = '/board';
+				});
+			});
+		});
+	</script>
+</body>
+	
+</html>

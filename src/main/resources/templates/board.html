@@ -1,0 +1,116 @@
+<html>
+
+<head>
+	<!-- third party css -->
+    <link href="/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <!-- third party css end -->
+
+    <!-- App css -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/css/app.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div class="row">
+		<div class="col-12" style="text-align: center;">
+			<div class="col-md-12 text-right">
+				<div class="btn-group" role="group">
+					<button type="button" onclick="location.href='/logout';" class="btn btn-primary">로그아웃</button>
+				</div>
+			</div>
+			<div class="card-box">
+                <h2 class="header-title">게시판</h2>
+                <p class="sub-header">
+                    공지사항입니다. ^^
+                </p>
+				<div class="col-md-12 text-right">
+					<div class="btn-group" role="group">
+						<button type="button" onclick="location.href='/board/post';" class="btn btn-primary">게시글 쓰기</button>
+					</div>
+				</div>
+                <div class="table-responsive">
+                    <table id="myTable" class="table table-sm table-bordered nowrap table-hover" style="width:100%">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>사용자명</th>
+                            <th>제목</th>
+                            <th>생성일자</th>
+                            <th>수정일자</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div> <!-- end card-box -->
+		</div>
+	</div>
+	
+	<!-- Vendor js -->
+    <script src="/js/vendor.min.js"></script>
+    <!-- third party js -->
+    <script src="/libs/datatables/jquery.dataTables.min.js"></script>
+    <script src="/libs/datatables/dataTables.bootstrap4.js"></script>
+    <script src="/libs/datatables/dataTables.responsive.min.js"></script>
+    <script src="/libs/datatables/responsive.bootstrap4.min.js"></script>
+    <script src="/libs/datatables/dataTables.buttons.min.js"></script>
+    <script src="/libs/datatables/buttons.bootstrap4.min.js"></script>
+    <script src="/libs/datatables/buttons.html5.min.js"></script>
+    <script src="/libs/datatables/buttons.flash.min.js"></script>
+    <script src="/libs/datatables/buttons.print.min.js"></script>
+    <script src="/libs/datatables/dataTables.keyTable.min.js"></script>
+    <script src="/libs/datatables/dataTables.select.min.js"></script>
+    
+    <!-- Datatables init -->
+    <script src="/js/pages/datatables.init.js"></script>
+
+    <!-- App js -->
+    <script src="/js/app.min.js"></script>
+    
+    <script>
+    	var myTable;
+    	
+    	$(document).ready(function() {
+    		myTable = $('#myTable').DataTable( {
+    			scrollY: 400,
+    	        scrollX: true,
+    	        lengthChange: false,
+    	        bFilter: false,
+    	        pageLength: 10,
+    	        "processing": true,
+    	        "serverSide": true,
+    			ajax : {
+                    'url': '/board/list',
+                    'type': 'GET',
+                    'dataType': 'json',
+                    'dataSrc': function(d) {
+						return d.data;
+					}
+                },
+                //data: data,
+                "columnDefs": [ {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                } ],
+                columns: [
+                	{ 'data' : 'username' },
+                	{ 'data' : 'title' },
+                	{ 'data' : 'createdAt' },
+                	{ 'data' : 'modifiedAt' }
+                ]
+    		});
+    		
+    		myTable.on('click', 'tr', function () {
+    	        console.log(myTable.row(this).data());
+    	        var rowData = myTable.row(this).data();
+    	        window.location.href = '/board/' + rowData.no + '/hit';
+    	    });
+    	});
+    	
+    </script>
+</body>
+
+</html>

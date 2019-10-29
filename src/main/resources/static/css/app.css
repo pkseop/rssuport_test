@@ -1,0 +1,70 @@
+.center {
+	position: absolute;
+	top: 50%;
+	transform: translate(0%, -50%);
+}
+
+.middle {
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0%);
+}
+
+.content-page {
+	padding: 0 0 10px 0;
+}
+
+.page-title-box {
+	margin: 0 -27px 10px -27px;
+}
+
+.card-box {
+	padding: 1.0rem;
+	margin-bottom: 10px;
+}
+
+.card-box.tab-top {
+	border-top: 0;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	padding-bottom: 0;
+}
+
+/*
+#sidebar-menu>ul>li>a {
+	padding: 5px 20px;
+}
+
+.nav-second-level li a, .nav-thrid-level li a {
+	padding: 5px 20px;
+}
+
+.col-form-label {
+	padding-top: calc(.45rem);
+	padding-bottom: cals(0.45rem);
+}
+
+.form-control {
+	padding-top: .45rem;
+	padding-bottom: 0.45rem;
+}
+*/
+
+.ag-cell .btn-sm {
+	vertical-align: unset;
+	padding: .19rem .8rem;
+}
+
+.ellipis {
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    display: block;
+    white-space: nowrap;
+}
+
+.table th.select-checkbox > i {
+	margin-left: 15px;
+	font-size: 1.16rem;
+}
