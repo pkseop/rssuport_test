@@ -6,8 +6,9 @@
 DB: H2
 
 실행방법: 
-1. STS에서 'maven import'로 프로젝트 임포트를 한다.
-2. "Run > Run As > Spring Boot App" 메뉴를 실행한다.
+1. STS 또는 이클립스에서 'maven import'로 프로젝트 임포트를 한다.
+2. "Run > Run As > Spring Boot App" 메뉴를 실행하여 프로그램을 실행할 수 있다.
+3. 브라우저에서 "http://localhost:8001" 로 접속할 수 있다.
 
 테스트 계정:
 초기 데이터로 계정과 테스트를 위한 게시판 데이터를 업로드하게 되어 있다.
